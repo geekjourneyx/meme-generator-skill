@@ -97,29 +97,6 @@ meme generate always --texts "the answer is 42"
 
 ### Mixed (Images + Text)
 
-Templates accepting both:
-```bash
-# Check template requirements first
-meme info <template>
-
-# Generate with both
-meme generate <template> --images photo.jpg --texts "text1" "text2"
-```
-
-### Using the Wrapper Script
-
-Simplified syntax via helper script:
-```bash
-{baseDir}/scripts/meme_wrapper.sh <template> <input_image> [output_file]
-```
-
-Example:
-```bash
-{baseDir}/scripts/meme_wrapper.sh petpet avatar.jpg petpet.gif
-```
-
-## Workflow
-
 ### Recommended Workflow
 
 1. **Search** for a template: `meme search <keyword>`
@@ -162,7 +139,7 @@ The meme CLI is not installed. Install it from GitHub:
 
 ```bash
 # Download the binary
-curl -L https://github.com/MemeCrafters/meme-generator/releases/latest/download/meme-x86_64-unknown-linux-gnu -o meme
+curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-x86_64-unknown-linux-gnu -o meme
 
 # Make executable and install
 chmod +x meme
@@ -172,7 +149,7 @@ sudo mv meme /usr/local/bin/
 meme download
 ```
 
-**GitHub**: https://github.com/MemeCrafters/meme-generator
+**GitHub**: https://github.com/MemeCrafters/meme-generator-rs
 
 **Alternative**: Build from source with Rust:
 ```bash
@@ -219,14 +196,6 @@ If `meme download` fails with connection timeout:
 ```
 
 **Note**: Some templates may work without downloaded resources if they have built-in assets.
-
-### Permission Denied
-
-If script fails with permission error:
-
-```bash
-chmod +x {baseDir}/scripts/meme_wrapper.sh
-```
 
 ## Tips
 

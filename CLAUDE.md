@@ -15,23 +15,12 @@
 
 ```
 meme-generator-skill/
-├── skills/                        # Skills 根目录
-│   ├── generating-memes/          # 表情生成 skill
-│   │   ├── SKILL.md               # 主技能文件（251行）
-│   │   ├── scripts/
-│   │   │   └── meme_wrapper.sh    # 生成包装脚本
-│   │   └── references/
-│   │       ├── templates.md       # 298 模板分类列表
-│   │       └── examples.md        # 使用示例
-│   └── emotional-companion/       # 活人感 AI 助理 skill
-│       ├── SKILL.md               # 主技能文件（123行）
-│       ├── scripts/
-│       │   ├── emotion_analyzer.py # 情绪分析脚本
-│       │   └── meme_selector.py    # 表情选择脚本
+├── skills/
+│   └── generating-memes/          # 表情生成 skill
+│       ├── SKILL.md               # 主技能文件
 │       └── references/
-│           ├── emotion_rules.md     # 情绪响应规则
-│           ├── scenarios.md         # 真实对话场景
-│           └── progression.md       # 关系递进指南
+│           ├── templates.md       # 298 模板分类列表
+│           └── examples.md        # 使用示例
 ├── scripts/
 │   └── install-openclaw.sh        # 一键安装脚本
 ├── README.md                      # 项目文档（中文）
@@ -199,15 +188,3 @@ meme info petpet
 - **触发**: 用户要求制作/生成表情包
 - **依赖**: meme CLI
 - **文件**: `skills/generating-memes/SKILL.md`
-
-### emotional-companion (活人感 AI 助理)
-
-- **功能**: 结合上下文自动选择合适的表情包，营造有真人感的对话体验
-- **核心特性**:
-  - 呼吸感：不每次都回应，有自然节奏
-  - 情绪同步：根据用户情绪选择匹配的表情
-  - 关系递进：从陌生到熟悉到亲密，逐渐深化
-  - 自然表达：表情+文字组合自然，不生硬
-- **依赖**: meme CLI, generating-memes skill
-- **文件**: `skills/emotional-companion/SKILL.md`
-- **设计理念**: 混合型性格（温柔+调侃+专业），自适应频率，关系递进

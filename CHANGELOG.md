@@ -7,20 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- **emotional-companion** skill - AI companion with human-like emotional responses
-  - Breathing room design: natural response rhythm, not every reply needs a meme
-  - Emotion synchronization: match user's emotional state
-  - Relationship progression: ice break → familiar → intimate stages
-  - Natural language integration: memes + text feel spontaneous, not forced
-  - Emotion analysis script (emotion_analyzer.py)
-  - Meme selection script (meme_selector.py)
-  - Progressive disclosure with detailed reference docs
-
 ### Changed
-- README.md translated to Chinese
-- Remove proxy/VPN recommendations from troubleshooting
-- Update CLAUDE.md with emotional-companion skill documentation
+- Remove `emotional-companion` skill - decided to keep the skill simple and let OpenClaw handle emotional intelligence directly
+- Remove `meme_wrapper.sh` script - use `meme` CLI directly for better flexibility
+- Update SKILL.md to reference `meme-generator-rs` (correct repo name)
+- Simplify README.md to remove obsolete script references
 
 ## [1.0.0] - 2025-02-07
 
