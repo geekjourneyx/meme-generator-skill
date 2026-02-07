@@ -526,30 +526,16 @@ If `meme download` fails:
 ```bash
 # Typical error:
 # WARN Failed to download: Connection timed out (os error 110)
+# The CLI cannot reach cdn.jsdelivr.net
 
-# The CLI tries to connect to cdn.jsdelivr.net
-
-# Try using proxy
-export https_proxy=http://127.0.0.1:7890
-meme download
-
-# Check if CDN is reachable
-curl -I https://cdn.jsdelivr.net
-
-# Alternative: Some templates work without downloaded resources
-# Try generating directly - it may use built-in assets
+# Solution: Try generating directly - some templates work offline
 meme generate petpet --images photo.jpg > test.gif
+
+# Alternative: Download resources manually from GitHub releases
+# https://github.com/MemeCrafters/meme-generator-rs/releases
 ```
 
-**Common causes**:
-- Firewall blocking jsDelivr CDN
-- Geographic restrictions
-- Network connectivity issues
-
-**Workarounds**:
-- Use VPN or proxy
-- Some templates have built-in assets and work offline
-- Download resources manually from GitHub releases
+**Note**: Some templates have built-in assets and work without downloading resources.
 
 ---
 

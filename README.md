@@ -297,13 +297,9 @@ meme download
 
 ```bash
 # 错误：Connection timed out (os error 110)
-# CLI 尝试连接 cdn.jsdelivr.net
+# CLI 尝试连接 cdn.jsdelivr.net 失败
 
-# 尝试使用代理或 VPN
-export https_proxy=http://127.0.0.1:7890
-meme download
-
-# 或从 GitHub releases 手动下载资源：
+# 解决方案：从 GitHub releases 手动下载资源包
 # https://github.com/MemeCrafters/meme-generator-rs/releases
 ```
 

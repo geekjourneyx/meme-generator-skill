@@ -207,32 +207,18 @@ This downloads all required template assets.
 
 ### Network Issues (Download Failed)
 
-If `meme download` fails with connection timeout or cannot reach CDN:
+If `meme download` fails with connection timeout:
 
 ```bash
 # Error example:
 # WARN Failed to download: Connection timed out (os error 110)
+# The CLI cannot reach cdn.jsdelivr.net
 
-# Try alternative: Use proxy or VPN
-export https_proxy=http://127.0.0.1:7890
-meme download
-
-# Or manually download resources from GitHub
-# Visit: https://github.com/MemeCrafters/meme-generator
-# Check resources directory in the repository
+# Solution: Download resources manually from GitHub releases
+# Visit: https://github.com/MemeCrafters/meme-generator-rs/releases
 ```
 
-**The download connects to**: `cdn.jsdelivr.net`
-
-**Common issues**:
-- Firewall blocking jsDelivr CDN
-- Network restrictions in your region
-- DNS resolution problems
-
-**Workarounds**:
-- Use a VPN or proxy
-- Download resources manually from GitHub releases
-- Some templates may work without downloaded resources
+**Note**: Some templates may work without downloaded resources if they have built-in assets.
 
 ### Permission Denied
 
