@@ -8,17 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- One-click installation script (`scripts/install-openclaw.sh`)
-- Platform detection and guided installation for meme CLI
-- Multi-platform support (Linux/macOS/Windows/Android)
-- Network troubleshooting guide for download failures
-- Bilingual documentation (Chinese/English)
+- **emotional-companion** skill - AI companion with human-like emotional responses
+  - Breathing room design: natural response rhythm, not every reply needs a meme
+  - Emotion synchronization: match user's emotional state
+  - Relationship progression: ice break → familiar → intimate stages
+  - Natural language integration: memes + text feel spontaneous, not forced
+  - Emotion analysis script (emotion_analyzer.py)
+  - Meme selection script (meme_selector.py)
+  - Progressive disclosure with detailed reference docs
 
-### Features
-- 298+ meme templates with categorized reference
-- Progressive disclosure structure (SKILL.md + references/)
-- Helper script with validation and friendly errors
-- Comprehensive usage examples and workflows
+### Changed
+- README.md translated to Chinese
+- Remove proxy/VPN recommendations from troubleshooting
+- Update CLAUDE.md with emotional-companion skill documentation
 
 ## [1.0.0] - 2025-02-07
 
