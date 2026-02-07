@@ -1,40 +1,40 @@
-# Generating Memes Skill
+# 表情包生成技能 (Meme Generator Skill)
 
-An OpenClaw skill for creating memes using the [meme CLI](https://github.com/MemeCrafters/meme-generator) with 298+ templates.
+一个用于 OpenClaw 的技能，基于 [meme CLI](https://github.com/MemeCrafters/meme-generator-rs) 支持 298+ 种表情包模板。
 
-## Features
+## 特性
 
-- **298+ meme templates** including popular formats like petpet, slap, hug, rub, and more
-- **Search and discover** templates by keyword
-- **Preview templates** before generation
-- **Text-based and image-based** meme support
-- **Simplified wrapper script** for easy generation
-- **Friendly error handling** with clear installation instructions
+- **298+ 表情包模板** 包括热门格式如 petpet、slap、hug、rub 等
+- **搜索和发现** 按关键词搜索模板
+- **预览模板** 生成前预览效果
+- **图片和文字** 支持图片和文字类表情包
+- **简化脚本** 提供简化的生成包装脚本
+- **友好错误处理** 清晰的安装说明和错误提示
 
-## Installation
+## 安装
 
-### Quick Install (One-liner)
+### 快速安装（一键）
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/geekjourneyx/meme-generator-skill/main/scripts/install-openclaw.sh | bash
 ```
 
-This installer will:
-- ✅ Check if `meme` CLI is installed (guide you if not)
-- ✅ Download and install the skill to `~/.openclaw/skills/`
-- ✅ Set proper permissions for scripts
+安装程序将：
+- ✅ 检查 `meme` CLI 是否已安装（未安装会引导你）
+- ✅ 下载并安装技能到 `~/.openclaw/skills/`
+- ✅ 设置脚本执行权限
 
-### Prerequisites
+### 前置要求
 
-The skill requires the **meme CLI** tool. If not installed, the installer will guide you.
+本技能需要 **meme CLI** 工具。如果未安装，安装程序会引导你。
 
-**Install meme CLI:**
+**安装 meme CLI：**
 
-1. **Download from GitHub Releases** (推荐/recommended)
+1. **从 GitHub Releases 下载**（推荐）
 
-   Visit: https://github.com/MemeCrafters/meme-generator-rs/releases
+   访问：https://github.com/MemeCrafters/meme-generator-rs/releases
 
-   | Platform | File Name |
+   | 平台 | 文件名 |
    |----------|-----------|
    | Linux x86_64 | `meme-generator-cli-linux-x86_64.zip` |
    | Linux ARM64 | `meme-generator-cli-linux-aarch64.zip` |
@@ -43,7 +43,7 @@ The skill requires the **meme CLI** tool. If not installed, the installer will g
    | Windows x86_64 | `meme-generator-cli-windows-x86_64.zip` |
    | Android ARM64 | `meme-generator-cli-android-aarch64.zip` |
 
-   After download:
+   下载后执行：
    ```bash
    # 解压
    unzip meme-generator-cli-*.zip
@@ -55,14 +55,14 @@ The skill requires the **meme CLI** tool. If not installed, the installer will g
    meme download
    ```
 
-2. **One-line install** (Linux x86_64):
+2. **一键安装**（Linux x86_64）：
    ```bash
    curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-generator-cli-linux-x86_64.zip -o meme-cli.zip
    unzip meme-cli.zip && chmod +x meme && sudo mv meme /usr/local/bin/
    rm meme-cli.zip && meme download
    ```
 
-3. **Using Cargo** (需要 Rust):
+3. **使用 Cargo**（需要 Rust）：
    ```bash
    cargo install meme-generator
    meme download
@@ -70,33 +70,33 @@ The skill requires the **meme CLI** tool. If not installed, the installer will g
 
 **GitHub**: https://github.com/MemeCrafters/meme-generator-rs
 
-### Alternative Installation Methods
+### 其他安装方式
 
-#### Method 1: npx skills (Universal - Recommended)
+#### 方式 1: npx skills（通用 - 推荐）
 
-The **npx skills** CLI supports 35+ AI coding agents including Claude Code, Cursor, Codex, OpenCode, and OpenClaw.
+**npx skills** CLI 支持 35+ 种 AI 编码工具，包括 Claude Code、Cursor、Codex、OpenCode 和 OpenClaw。
 
 ```bash
-# Install to all supported agents (auto-detected)
+# 安装到所有支持的 agent（自动检测）
 npx skills add geekjourneyx/meme-generator-skill
 
-# Install to specific agents only
+# 只安装到指定的 agent
 npx skills add geekjourneyx/meme-generator-skill -a claude-code -a cursor -a openclaw
 
-# List available skills in the repository
+# 查看仓库中可用的 skills
 npx skills add geekjourneyx/meme-generator-skill --list
 
-# Install globally (available across all projects)
+# 全局安装（所有项目可用）
 npx skills add geekjourneyx/meme-generator-skill -g
 ```
 
-**Supported Agents**: Claude Code, Cursor, Codex, OpenCode, OpenClaw, Cline, Roo Code, Windsurf, GitHub Copilot, and 25+ more.
+**支持的 Agent**: Claude Code、Cursor、Codex、OpenCode、OpenClaw、Cline、Roo Code、Windsurf、GitHub Copilot 和 25+ 更多。
 
-For more information: https://github.com/vercel-labs/skills
+更多信息：https://github.com/vercel-labs/skills
 
 ---
 
-#### Method 2: ClawHub (OpenClaw)
+#### 方式 2: ClawHub（OpenClaw）
 
 ```bash
 clawhub install generating-memes
@@ -104,241 +104,247 @@ clawhub install generating-memes
 
 ---
 
-#### Method 3: Manual Installation
+#### 方式 3: 手动安装
 
 ```bash
-# Copy to OpenClaw skills directory
-cp -r generating-memes ~/.openclaw/skills/
+# 复制到 OpenClaw skills 目录
+cp -r skills/generating-memes ~/.openclaw/skills/
 
-# Or copy to Claude Code skills directory
-cp -r generating-memes ~/.claude/skills/
+# 或复制到 Claude Code skills 目录
+cp -r skills/generating-memes ~/.claude/skills/
 ```
 
-## Usage
+## 使用方法
 
-### In OpenClaw
+### 在 OpenClaw 中
 
-Simply ask the assistant to create memes:
+直接让助手创建表情包：
 
-- "Make a petpet meme from this photo"
-- "Create a slap meme with my friend's picture"
-- "Generate a hug meme"
-- "Make a 5000choyen meme with text"
+- "用这张照片做个 petpet 表情包"
+- "用我朋友的照片做个 slap 表情包"
+- "生成一个 hug 表情包"
+- "做个 5000choyen 文字表情包"
 
-### Command Line
+### 命令行
 
-#### Basic Commands
+#### 基础命令
 
 ```bash
-# List all available templates
+# 列出所有可用模板
 meme list
 
-# Search templates by keyword
+# 按关键词搜索模板
 meme search "pet"
 meme search "slap"
 meme search "hug"
 
-# Generate a simple meme
+# 生成表情包
 meme generate petpet --images avatar.jpg > petpet.gif
 
-# Generate a text-based meme
-meme generate 5000choyen --texts "IMPORTANT" "small text"
+# 生成文字类表情包
+meme generate 5000choyen --texts "大字" "小字"
 
-# Check template requirements
+# 查看模板要求
 meme info petpet
 
-# Preview a template
+# 预览模板
 meme preview petpet
 ```
 
-#### Using the Wrapper Script
+#### 使用包装脚本
 
-The included wrapper script simplifies meme generation:
+内置的包装脚本简化了表情包生成：
 
 ```bash
-# Basic usage
+# 基础用法
 ~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh petpet avatar.jpg output.gif
 
-# With default output (meme_output.gif)
+# 使用默认输出文件名 (meme_output.gif)
 ~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh petpet avatar.jpg
 ```
 
-## Popular Templates
+## 热门模板
 
-| Template | Description | Type |
+| 模板 | 描述 | 类型 |
 |----------|-------------|------|
-| `petpet` | Petting animation (摸/摸摸) | Image |
-| `slap` | Slapping (一巴掌) | Image |
-| `hug` | Hugging (抱/抱抱) | Image |
-| `rub` | Nuzzling (贴/贴贴) | Image |
-| `pat` | Patting (拍) | Image |
-| `kiss` | Kissing (亲/亲亲) | Image |
-| `pinch` | Pinching (捏/捏脸) | Image |
-| `5000choyen` | Big/small text contrast | Text |
-| `always` | "Always" format meme | Text |
-| `shock` | Shocked reaction (震惊) | Text |
-| `good_news` | Good news header (喜报) | Text |
-| `bad_news` | Bad news header (悲报) | Text |
-| `applaud` | Applause (鼓掌) | Image |
-| `stare_at_you` | Staring at you (盯着你) | Image |
+| `petpet` | 摸头动画 | 图片 |
+| `slap` | 一巴掌 | 图片 |
+| `hug` | 抱抱 | 图片 |
+| `rub` | 贴贴 | 图片 |
+| `pat` | 拍头 | 图片 |
+| `kiss` | 亲亲 | 图片 |
+| `pinch` | 捏脸 | 图片 |
+| `5000choyen` | 大小文字对比 | 文字 |
+| `always` | "一直" 格式 | 文字 |
+| `shock` | 震惊 | 文字 |
+| `good_news` | 喜报 | 文字 |
+| `bad_news` | 悲报 | 文字 |
+| `applaud` | 鼓掌 | 图片 |
+| `stare_at_you` | 盯着你 | 图片 |
 
-[See full template list](references/templates.md)
+[查看完整模板列表](skills/generating-memes/references/templates.md)
 
-## Examples
+## 使用示例
 
-### Petpet Meme
+### Petpet 摸头
 
 ```bash
 meme generate petpet --images photo.jpg > petpet.gif
 ```
 
-### Slap Meme
+### Slap 一巴掌
 
 ```bash
 meme generate slap --images target.jpg > slap.gif
 ```
 
-### Hug Meme
+### Hug 抱抱
 
 ```bash
 meme generate hug --images friend.jpg > hug.gif
 ```
 
-### Text Meme (5000choyen)
+### 5000choyen 大小字
 
 ```bash
-meme generate 5000choyen --texts "IMPORTANT" "ignore this"
+meme generate 5000choyen --texts "重要" "忽略"
 ```
 
-### YouTube Style
+### YouTube 风格
 
 ```bash
-meme generate youtube --texts "Video Title" "Channel Name"
+meme generate youtube --texts "视频标题" "频道名称"
 ```
 
-### With Wrapper Script
+### 使用包装脚本
 
 ```bash
 ~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh petpet input.jpg output.gif
 ```
 
-## Common Workflows
+## 常用工作流
 
-### Discovery Workflow
+### 发现工作流
 
 ```bash
-# 1. Search for a template
+# 1. 搜索模板
 meme search "pet"
 
-# 2. Preview the template
+# 2. 预览模板
 meme preview petpet
 
-# 3. Check requirements
+# 3. 查看要求
 meme info petpet
 
-# 4. Generate the meme
+# 4. 生成表情包
 meme generate petpet --images photo.jpg > output.gif
 ```
 
-### Batch Processing
+### 批量处理
 
 ```bash
-# Create petpet variants for all images
+# 为所有图片生成 petpet 变体
 for img in *.jpg; do
     meme generate petpet --images "$img" > "petpet_$(basename $img .jpg).gif"
 done
 ```
 
-## File Structure
+## 目录结构
 
 ```
-generating-memes/
-├── SKILL.md              # Main skill file
-├── README.md             # This file
-├── scripts/
-│   └── meme_wrapper.sh   # Simplified generation wrapper
-└── references/
-    ├── templates.md      # Full template list (298 templates)
-    └── examples.md       # Usage examples and workflows
+meme-generator-skill/
+├── skills/                        # 技能根目录
+│   └── generating-memes/          # Skill 主目录
+│       ├── SKILL.md               # 主技能文件
+│       ├── scripts/
+│       │   └── meme_wrapper.sh    # 生成包装脚本
+│       └── references/
+│           ├── templates.md       # 完整模板列表（298 个）
+│           └── examples.md        # 使用示例和工作流
+├── scripts/                       # 项目脚本
+│   └── install-openclaw.sh        # 一键安装脚本
+├── README.md                      # 本文件
+├── CHANGELOG.md                   # 版本记录
+└── CLAUDE.md                      # 项目记忆
 ```
 
-## Troubleshooting
+## 故障排除
 
 ### "meme: command not found"
 
-The meme CLI is not installed. See [Installation](#installation) above.
+meme CLI 未安装。见上方 [安装](#安装) 说明。
 
-### Template Not Found
+### 模板未找到
 
 ```bash
-# Verify template name
+# 验证模板名称
 meme list | grep <template>
 
-# Search for similar templates
+# 搜索相似模板
 meme search <keyword>
 ```
 
-### Missing Resources
+### 缺少资源
 
 ```bash
-# Download required template assets
+# 下载所需的模板资源
 meme download
 ```
 
-### Network Issues (Download Failed)
+### 网络问题（下载失败）
 
-If `meme download` fails with connection timeout:
+如果 `meme download` 遇到连接超时：
 
 ```bash
-# Error: Connection timed out (os error 110)
-# The CLI tries to connect to cdn.jsdelivr.net
+# 错误：Connection timed out (os error 110)
+# CLI 尝试连接 cdn.jsdelivr.net
 
-# Try using a proxy or VPN
+# 尝试使用代理或 VPN
 export https_proxy=http://127.0.0.1:7890
 meme download
 
-# Or download resources manually from GitHub releases:
-# https://github.com/MemeCrafters/meme-generator/releases
+# 或从 GitHub releases 手动下载资源：
+# https://github.com/MemeCrafters/meme-generator-rs/releases
 ```
 
-**Note**: Some templates may work without downloading resources if the assets are built-in.
+**注意**: 某些模板可能使用内置资源，无需下载即可使用。
 
-### Permission Issues
+### 权限问题
 
 ```bash
-# Make wrapper script executable
+# 为包装脚本添加执行权限
 chmod +x ~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh
 ```
 
-## Resources
+## 资源链接
 
-- [meme CLI GitHub](https://github.com/MemeCrafters/meme-generator) - Source code and documentation
-- [Full Template List](references/templates.md) - All 298 templates categorized
-- [Usage Examples](references/examples.md) - Detailed examples and workflows
+- [meme CLI GitHub](https://github.com/MemeCrafters/meme-generator-rs) - 源码和文档
+- [完整模板列表](skills/generating-memes/references/templates.md) - 所有 298 个模板分类
+- [使用示例](skills/generating-memes/references/examples.md) - 详细示例和工作流
 
-## License
+## 许可证
 
 MIT License
 
-## Contributing
+## 贡献
 
-Contributions welcome! Feel free to submit issues and pull requests.
+欢迎贡献！欢迎提交 Issue 和 Pull Request。
 
 ---
 
-## 💰 Buy Me A Coffee
+## 💰 打赏 Buy Me A Coffee
 
 如果该项目帮助了您，请作者喝杯咖啡吧 ☕️
 
-### WeChat
+### 微信打赏
 
 <img src="https://raw.githubusercontent.com/geekjourneyx/awesome-developer-go-sail/main/docs/assets/wechat-reward-code.jpg" alt="微信打赏码" width="200" />
 
 ---
 
-## 🧑‍💻 Author
+## 🧑‍💻 作者
 
-- **Author**: geekjourneyx
+- **作者**: geekjourneyx
 - **X (Twitter)**: https://x.com/seekjourney
 - **公众号**: 极客杰尼
 
