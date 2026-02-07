@@ -39,7 +39,6 @@ meme-generator-skill/
 ```bash
 # 检查 Shell 脚本语法
 bash -n scripts/install-openclaw.sh
-bash -n generating-memes/scripts/meme_wrapper.sh
 
 # 检查 YAML frontmatter 有效性
 # 确保 SKILL.md 的 frontmatter 格式正确
@@ -61,7 +60,6 @@ bash -n generating-memes/scripts/meme_wrapper.sh
 | YAML frontmatter | name 符合规范，description 第三人称 |
 | SKILL.md 行数 | 保持在 500 行以内 |
 | 渐进式披露 | 详细内容在 references/ 中 |
-| 中英文双语 | 关键提示提供双语 |
 | 排版格式 | Markdown 格式规范，表格对齐 |
 
 #### 4. SKILL.md 意图识别检查
@@ -163,7 +161,6 @@ wc -l generating-memes/SKILL.md
 
 # 验证 Shell 脚本语法
 bash -n scripts/*.sh
-bash -n generating-memes/scripts/*.sh
 
 # 测试 meme CLI
 meme --version

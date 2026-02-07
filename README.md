@@ -149,18 +149,6 @@ meme info petpet
 meme preview petpet
 ```
 
-#### 使用包装脚本
-
-内置的包装脚本简化了表情包生成：
-
-```bash
-# 基础用法
-~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh petpet avatar.jpg output.gif
-
-# 使用默认输出文件名 (meme_output.gif)
-~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh petpet avatar.jpg
-```
-
 ## 热门模板
 
 | 模板 | 描述 | 类型 |
@@ -214,12 +202,6 @@ meme generate 5000choyen --texts "重要" "忽略"
 meme generate youtube --texts "视频标题" "频道名称"
 ```
 
-### 使用包装脚本
-
-```bash
-~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh petpet input.jpg output.gif
-```
-
 ## 常用工作流
 
 ### 发现工作流
@@ -254,8 +236,6 @@ meme-generator-skill/
 ├── skills/                        # 技能根目录
 │   └── generating-memes/          # Skill 主目录
 │       ├── SKILL.md               # 主技能文件
-│       ├── scripts/
-│       │   └── meme_wrapper.sh    # 生成包装脚本
 │       └── references/
 │           ├── templates.md       # 完整模板列表（298 个）
 │           └── examples.md        # 使用示例和工作流
@@ -302,13 +282,6 @@ meme download
 ```
 
 **注意**: 某些模板可能使用内置资源，无需下载即可使用。
-
-### 权限问题
-
-```bash
-# 为包装脚本添加执行权限
-chmod +x ~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh
-```
 
 ## 资源链接
 

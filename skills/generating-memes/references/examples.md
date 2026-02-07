@@ -217,28 +217,6 @@ meme generate stare_at_you --images person.jpg
 
 ## Advanced Usage
 
-### Using the Wrapper Script
-
-The wrapper script simplifies the generate command with better error handling.
-
-```bash
-# Basic usage
-{baseDir}/scripts/meme_wrapper.sh petpet avatar.jpg output.gif
-
-# With default output (meme_output.gif)
-{baseDir}/scripts/meme_wrapper.sh petpet avatar.jpg
-
-# The script outputs MEDIA: prefix for auto-attachment
-```
-
-**Script features**:
-- Validates template exists before generating
-- Validates input file exists
-- Outputs `MEDIA:` prefix for OpenClaw auto-attachment
-- Clear error messages
-
----
-
 ### Batch Processing
 
 Generate multiple memes at once:
@@ -345,9 +323,6 @@ When you already know the template:
 ```bash
 # Generate directly
 meme generate petpet --images photo.jpg > petpet.gif
-
-# Or use the wrapper script
-{baseDir}/scripts/meme_wrapper.sh petpet photo.jpg petpet.gif
 ```
 
 ---
@@ -506,19 +481,6 @@ meme generate petpet --images /full/path/to/photo.jpg
 
 ---
 
-### Permission Issues
-
-```bash
-# Make script executable
-chmod +x {baseDir}/scripts/meme_wrapper.sh
-
-# Make output directory writable
-mkdir -p output
-chmod +w output
-```
-
----
-
 ### Network Issues (Download Failed)
 
 If `meme download` fails:
@@ -542,14 +504,3 @@ meme generate petpet --images photo.jpg > test.gif
 ## Output Format
 
 Generated memes are typically in GIF format for animations and PNG for static images.
-
-### For OpenClaw Integration
-
-Use the wrapper script which outputs `MEDIA:` prefix:
-
-```bash
-{baseDir}/scripts/meme_wrapper.sh petpet photo.jpg output.gif
-# Outputs: MEDIA:/path/to/output.gif
-```
-
-This allows OpenClaw to automatically attach the generated file to responses.

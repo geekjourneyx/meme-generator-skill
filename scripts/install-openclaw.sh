@@ -160,7 +160,6 @@ EXTRACTED=$(find "$TEMP_DIR" -maxdepth 1 -type d -name "meme-generator-skill-*" 
 # Install
 mkdir -p "$INSTALL_DIR"
 cp -r "${EXTRACTED}/skills/generating-memes/"* "$INSTALL_DIR/"
-chmod +x "${INSTALL_DIR}/scripts/"*.sh 2>/dev/null || true
 
 # Cleanup
 rm -rf "$TEMP_DIR"
@@ -184,9 +183,6 @@ printf "  ${BLUE}meme search pet${NC}\n"
 printf "\n"
 printf "  # 生成表情包\n"
 printf "  ${BLUE}meme generate petpet --images photo.jpg > petpet.gif${NC}\n"
-printf "\n"
-printf "  # 使用包装脚本\n"
-printf "  ${BLUE}~/.openclaw/skills/generating-memes/scripts/meme_wrapper.sh petpet photo.jpg${NC}\n"
 printf "\n"
 
 printf "${YELLOW}热门模板 / Popular templates:${NC}\n"
