@@ -17,56 +17,29 @@
 curl -fsSL https://raw.githubusercontent.com/geekjourneyx/meme-generator-skill/main/scripts/install-openclaw.sh | bash
 ```
 
-安装程序将：
-- ✅ 检查 `meme` CLI 是否已安装（未安装会引导你）
-- ✅ 下载并安装技能到 `~/.openclaw/skills/`
-- ✅ 设置脚本执行权限
+安装程序将自动完成：
+- ✅ 检测并安装 `meme` CLI（如未安装）
+- ✅ 下载模板资源（`meme download`）
+- ✅ 安装技能到 `~/.openclaw/skills/`
 
-### 前置要求
+### 手动安装 meme CLI
 
-本技能需要 **meme CLI** 工具。如果未安装，安装程序会引导你。
+如需手动安装或更新 meme CLI：
 
-**安装 meme CLI：**
+| 平台 | 一键命令 |
+|------|---------|
+| Linux x86_64 | `curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-generator-cli-linux-x86_64.zip -o meme-cli.zip && unzip meme-cli.zip && sudo mv meme /usr/local/bin/ && meme download` |
+| Linux ARM64 | `curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-generator-cli-linux-aarch64.zip -o meme-cli.zip && unzip meme-cli.zip && sudo mv meme /usr/local/bin/ && meme download` |
+| macOS x86_64 | `curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-generator-cli-macos-x86_64.zip -o meme-cli.zip && unzip meme-cli.zip && sudo mv meme /usr/local/bin/ && meme download` |
+| macOS ARM64 | `curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-generator-cli-macos-aarch64.zip -o meme-cli.zip && unzip meme-cli.zip && sudo mv meme /usr/local/bin/ && meme download` |
 
-1. **从 GitHub Releases 下载**（推荐）
+**或使用 Cargo**（需要 Rust）：
+```bash
+cargo install meme-generator
+meme download
+```
 
-   访问：https://github.com/MemeCrafters/meme-generator-rs/releases
-
-   | 平台 | 文件名 |
-   |----------|-----------|
-   | Linux x86_64 | `meme-generator-cli-linux-x86_64.zip` |
-   | Linux ARM64 | `meme-generator-cli-linux-aarch64.zip` |
-   | macOS x86_64 | `meme-generator-cli-macos-x86_64.zip` |
-   | macOS ARM64 | `meme-generator-cli-macos-aarch64.zip` |
-   | Windows x86_64 | `meme-generator-cli-windows-x86_64.zip` |
-   | Android ARM64 | `meme-generator-cli-android-aarch64.zip` |
-
-   下载后执行：
-   ```bash
-   # 解压
-   unzip meme-generator-cli-*.zip
-
-   # 安装
-   chmod +x meme && sudo mv meme /usr/local/bin/
-
-   # 下载资源
-   meme download
-   ```
-
-2. **一键安装**（Linux x86_64）：
-   ```bash
-   curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-generator-cli-linux-x86_64.zip -o meme-cli.zip
-   unzip meme-cli.zip && chmod +x meme && sudo mv meme /usr/local/bin/
-   rm meme-cli.zip && meme download
-   ```
-
-3. **使用 Cargo**（需要 Rust）：
-   ```bash
-   cargo install meme-generator
-   meme download
-   ```
-
-**GitHub**: https://github.com/MemeCrafters/meme-generator-rs
+**项目地址**: https://github.com/MemeCrafters/meme-generator-rs
 
 ### 其他安装方式
 
@@ -94,15 +67,7 @@ npx skills add geekjourneyx/meme-generator-skill -g
 
 ---
 
-#### 方式 2: ClawHub（OpenClaw）
-
-```bash
-clawhub install generating-memes
-```
-
----
-
-#### 方式 3: 手动安装
+#### 方式 2: 手动安装
 
 ```bash
 # 复制到 OpenClaw skills 目录

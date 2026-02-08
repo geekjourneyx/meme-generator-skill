@@ -2,9 +2,6 @@
 #
 # generating-memes OpenClaw Skill Installer
 #
-# Just copies skill files to ~/.openclaw/skills/generating-memes
-# For ClawHub users: clawhub install generating-memes
-#
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/geekjourneyx/meme-generator-skill/main/scripts/install-openclaw.sh | bash
 #
@@ -15,6 +12,7 @@ REPO="geekjourneyx/meme-generator-skill"
 SKILL_NAME="generating-memes"
 INSTALL_DIR="${HOME}/.openclaw/skills/${SKILL_NAME}"
 GITHUB_ARCHIVE="https://github.com/${REPO}/archive/refs/heads/main.tar.gz"
+MEME_RELEASES_BASE="https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download"
 
 # Colors
 RED='\033[0;31m'
@@ -26,7 +24,7 @@ NC='\033[0m'
 info()    { printf "${BLUE}ℹ${NC} %s\n" "$1"; }
 success() { printf "${GREEN}✓${NC} %s\n" "$1"; }
 warn()    { printf "${YELLOW}⚠${NC} %s\n" "$1"; }
-error()   { printf "${RED}✗${NC} %s\n" "$1" >&2; exit 1; }
+error()   { printf "${RED}✗${NC} %s\n" "$1" >&2; }
 
 # Header
 printf "\n"
@@ -34,18 +32,6 @@ printf "${BLUE}========================================${NC}\n"
 printf "${BLUE}   Meme Generator OpenClaw Skill${NC}\n"
 printf "${BLUE}========================================${NC}\n"
 printf "\n"
-
-# Check for ClawHub first
-if command -v clawhub &>/dev/null; then
-    info "检测到 clawhub CLI / ClawHub CLI detected"
-    printf "\n"
-    printf "推荐使用 ClawHub 安装 / Recommend using ClawHub:\n"
-    printf "  ${GREEN}clawhub install generating-memes${NC}\n"
-    printf "\n"
-    read -p "继续手动安装？/ Continue manual install? [y/N] " -n 1 -r
-    printf "\n"
-    [[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
-fi
 
 # Check prerequisites
 command -v curl &>/dev/null || command -v wget &>/dev/null || \
@@ -55,80 +41,157 @@ command -v curl &>/dev/null || command -v wget &>/dev/null || \
 if [[ ! -d "${HOME}/.openclaw" ]]; then
     warn "未检测到 OpenClaw 安装 / OpenClaw not detected"
     info "请先安装 OpenClaw: https://openclaw.ai/"
-    info "Install OpenClaw first: https://openclaw.ai/"
     printf "\n"
-    read -p "仍要继续安装技能？/ Continue installing skill anyway? [y/N] " -n 1 -r
+    read -p "仍要继续安装？/ Continue anyway? [y/N] " -n 1 -r
     printf "\n"
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
 fi
 
+# ============================================================================
+# Install meme CLI if not present
+# ============================================================================
+
+install_meme_cli() {
+    local os="$1"
+    local arch="$2"
+    local filename="$3"
+    local install_cmd="$4"
+
+    printf "\n"
+    info "正在下载 meme CLI / Downloading meme CLI..."
+    info "文件 / File: ${filename}"
+
+    TEMP_DIR=$(mktemp -d)
+    local zip_file="${TEMP_DIR}/meme-cli.zip"
+
+    # Download
+    if command -v curl &>/dev/null; then
+        curl -fsSL "${MEME_RELEASES_BASE}/${filename}" -o "$zip_file" || {
+            rm -rf "$TEMP_DIR"
+            error "下载失败 / Download failed"
+        }
+    else
+        wget -q "${MEME_RELEASES_BASE}/${filename}" -O "$zip_file" || {
+            rm -rf "$TEMP_DIR"
+            error "下载失败 / Download failed"
+        }
+    fi
+
+    # Extract
+    info "解压中 / Extracting..."
+    unzip -q "$zip_file" -d "$TEMP_DIR" || {
+        rm -rf "$TEMP_DIR"
+        error "解压失败 / Extract failed"
+    }
+
+    # Install
+    info "安装中 / Installing to /usr/local/bin/..."
+    if eval "$install_cmd"; then
+        success "meme CLI 安装成功 / meme CLI installed successfully"
+        rm -rf "$TEMP_DIR"
+        return 0
+    else
+        rm -rf "$TEMP_DIR"
+        return 1
+    fi
+}
+
 # Check if meme CLI is installed
 if ! command -v meme &>/dev/null; then
     printf "\n"
-    printf "${RED}════════════════════════════════════════════════════════════${NC}\n"
-    printf "${RED}  ⚠️  未检测到 meme CLI / meme CLI not detected${NC}\n"
-    printf "${RED}════════════════════════════════════════════════════════════${NC}\n"
-    printf "\n"
+    printf "${YELLOW}════════════════════════════════════════════════════════════${NC}\n"
+    printf "${YELLOW}  未检测到 meme CLI，正在自动安装...${NC}\n"
+    printf "${YELLOW}  meme CLI not detected, installing...${NC}\n"
+    printf "${YELLOW}════════════════════════════════════════════════════════════${NC}\n"
 
     # Detect platform
     OS="$(uname -s)"
     ARCH="$(uname -m)"
 
-    printf "${YELLOW}检测到平台 / Detected platform:${NC} $OS $ARCH\n"
-    printf "\n"
+    # Map platform to filename
+    FILENAME=""
+    case "$OS" in
+        Linux)
+            case "$ARCH" in
+                x86_64) FILENAME="meme-generator-cli-linux-x86_64.zip" ;;
+                aarch64) FILENAME="meme-generator-cli-linux-aarch64.zip" ;;
+                arm64) FILENAME="meme-generator-cli-linux-aarch64.zip" ;;
+                *) FILENAME="" ;;
+            esac
+            ;;
+        Darwin)
+            case "$ARCH" in
+                x86_64) FILENAME="meme-generator-cli-macos-x86_64.zip" ;;
+                arm64|arm64e) FILENAME="meme-generator-cli-macos-aarch64.zip" ;;
+                *) FILENAME="" ;;
+            esac
+            ;;
+        MINGW*|MSYS*|CYGWIN*)
+            case "$ARCH" in
+                x86_64) FILENAME="meme-generator-cli-windows-x86_64.zip" ;;
+                *) FILENAME="" ;;
+            esac
+            ;;
+        *)
+            FILENAME=""
+            ;;
+    esac
 
-    printf "${GREEN}📥 安装方法 / Installation methods:${NC}\n"
-    printf "\n"
+    if [[ -z "$FILENAME" ]]; then
+        error "不支持的平台 / Unsupported platform: $OS $ARCH"
+    fi
 
-    # Method 1: Download from GitHub Releases
-    printf "${BLUE}方法 1 / Method 1: 从 GitHub Releases 下载${NC} (推荐/recommended)\n"
-    printf "  ${YELLOW}→ 访问 / Visit:${NC} https://github.com/MemeCrafters/meme-generator-rs/releases\n"
-    printf "  ${YELLOW}→ 下载适合你系统的版本 / Download for your platform:${NC}\n"
-    printf "     • Linux x86_64:   meme-generator-cli-linux-x86_64.zip\n"
-    printf "     • Linux ARM64:    meme-generator-cli-linux-aarch64.zip\n"
-    printf "     • macOS x86_64:   meme-generator-cli-macos-x86_64.zip\n"
-    printf "     • macOS ARM64:    meme-generator-cli-macos-aarch64.zip\n"
-    printf "     • Windows x86_64: meme-generator-cli-windows-x86_64.zip\n"
-    printf "     • Android ARM64:  meme-generator-cli-android-aarch64.zip\n"
-    printf "\n"
-    printf "  ${GREEN}# 下载后解压并安装 / After download, extract and install:${NC}\n"
-    printf "  ${GREEN}unzip meme-generator-cli-*.zip${NC}\n"
-    printf "  ${GREEN}chmod +x meme && sudo mv meme /usr/local/bin/${NC}\n"
-    printf "  ${GREEN}meme download${NC}\n"
-    printf "\n"
+    # Try to install
+    if install_meme_cli "$OS" "$ARCH" "$FILENAME" "sudo mv ${TEMP_DIR}/meme /usr/local/bin/ 2>/dev/null || mv ${TEMP_DIR}/meme /usr/local/bin/ 2>/dev/null"; then
+        # Success
+        :
+    elif install_meme_cli "$OS" "$ARCH" "$FILENAME" "sudo mv ${TEMP_DIR}/meme /usr/local/bin/"; then
+        # Success with sudo only
+        :
+    else
+        # Failed - provide manual instructions
+        printf "\n"
+        error "自动安装失败，请手动安装 / Auto-install failed, please install manually:
 
-    # Method 2: One-line download (Linux x86_64)
-    printf "${BLUE}方法 2 / Method 2: 一键下载 / One-line download${NC} (Linux x86_64)\n"
-    printf "  ${GREEN}curl -L https://github.com/MemeCrafters/meme-generator-rs/releases/latest/download/meme-generator-cli-linux-x86_64.zip -o meme-cli.zip${NC}\n"
-    printf "  ${GREEN}unzip meme-cli.zip && chmod +x meme && sudo mv meme /usr/local/bin/${NC}\n"
-    printf "  ${GREEN}rm meme-cli.zip && meme download${NC}\n"
-    printf "\n"
+  ${GREEN}# 下载 / Download${NC}
+  curl -L ${MEME_RELEASES_BASE}/${FILENAME} -o meme-cli.zip
 
-    # Method 3: Cargo
-    printf "${BLUE}方法 3 / Method 3: 使用 Cargo / Using Cargo${NC} (需要 Rust/needs Rust)\n"
-    printf "  ${GREEN}cargo install meme-generator${NC}\n"
-    printf "  ${GREEN}meme download${NC}\n"
-    printf "\n"
+  ${GREEN}# 解压并安装 / Extract and install${NC}
+  unzip meme-cli.zip
+  chmod +x meme
+  sudo mv meme /usr/local/bin/
 
-    printf "${YELLOW}─────────────────────────────────────────────────────────${NC}\n"
-    printf "${YELLOW}📦 Releases 页面 / Releases:${NC} https://github.com/MemeCrafters/meme-generator-rs/releases\n"
-    printf "${YELLOW}📚 项目仓库 / Repository:${NC} https://github.com/MemeCrafters/meme-generator-rs\n"
-    printf "${YELLOW}─────────────────────────────────────────────────────────${NC}\n"
-    printf "\n"
-
-    printf "${RED}⚠️  注意 / Attention:${NC}\n"
-    printf "  • 安装 skill 后仍需安装 meme CLI 才能使用\n"
-    printf "  • You still need to install meme CLI after installing this skill\n"
-    printf "\n"
-
-    read -p "继续安装技能？/ Continue installing skill anyway? [y/N] " -n 1 -r
-    printf "\n"
-    [[ ! $REPLY =~ ^[Yy]$ ]] && exit 0
+  ${GREEN}# 下载模板资源 / Download templates${NC}
+  meme download"
+        exit 1
+    fi
 else
-    # meme is installed - show version
+    # meme CLI exists - show version
     MEME_VERSION=$(meme --version 2>/dev/null || echo "unknown")
     success "检测到 meme CLI / meme CLI detected (version: $MEME_VERSION)"
 fi
+
+# Check if templates are downloaded
+printf "\n"
+info "检查模板资源 / Checking templates..."
+if ! meme list &>/dev/null; then
+    warn "模板资源未下载 / Templates not downloaded"
+    info "正在下载模板资源 / Downloading templates..."
+    info "这可能需要几分钟 / This may take a few minutes..."
+
+    if meme download; then
+        success "模板资源下载完成 / Templates downloaded"
+    else
+        warn "资源下载失败，请稍后手动运行: meme download"
+        warn "Download failed, please run later: meme download"
+    fi
+else
+    success "模板资源已就绪 / Templates ready"
+fi
+
+# ============================================================================
+# Install skill
+# ============================================================================
 
 # Handle existing installation
 if [[ -d "$INSTALL_DIR" ]]; then
@@ -166,7 +229,7 @@ rm -rf "$TEMP_DIR"
 
 success "安装完成 / Installation complete!"
 
-# Show configuration instructions
+# Show usage instructions
 printf "\n"
 printf "${BLUE}========================================${NC}\n"
 printf "${BLUE}   使用说明 / Usage${NC}\n"
@@ -195,9 +258,8 @@ printf "\n"
 
 printf "安装路径 / Installed to: ${GREEN}%s${NC}\n" "$INSTALL_DIR"
 printf "项目地址 / GitHub: https://github.com/${REPO}\n"
-printf "meme CLI: https://github.com/MemeCrafters/meme-generator\n"
+printf "meme CLI: https://github.com/MemeCrafters/meme-generator-rs\n"
 printf "OpenClaw: https://openclaw.ai/\n"
-printf "ClawHub: https://clawhub.ai/\n"
 printf "\n"
 printf "${GREEN}🎭 Happy Meme-ing!${NC}\n"
 printf "\n"

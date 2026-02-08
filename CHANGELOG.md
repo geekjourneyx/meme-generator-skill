@@ -10,8 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Remove `emotional-companion` skill - decided to keep the skill simple and let OpenClaw handle emotional intelligence directly
 - Remove `meme_wrapper.sh` script - use `meme` CLI directly for better flexibility
+- Remove ClawHub references - not currently supported
 - Update SKILL.md to reference `meme-generator-rs` (correct repo name)
 - Simplify README.md to remove obsolete script references
+
+### Added
+- Auto-install meme CLI in install script - detects platform and installs from GitHub Releases
+- Auto-download templates - runs `meme download` if resources not found
 
 ## [1.0.0] - 2025-02-07
 
